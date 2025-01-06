@@ -53,6 +53,22 @@ void afisare(){
     }
 }
 
+void deleteNode(){
+    int x, y;
+    int i, j;
+    printf("\nCe nod doriti sa stergeti : ");
+    scanf("%d", &x);
+    for(i = 0; i < ctn; i++){
+        if(N[i] == x){
+            for(j = i; j < ctn-1; j++){
+                N[j] = N[j+1];
+            }
+            break;
+        }
+    }
+    
+}
+
 int main(){
 
     return 0;
