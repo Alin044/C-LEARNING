@@ -106,6 +106,51 @@ void deleteNode(Graph* graph, int node){
     for(int i = 0; i < graph -> num_nodes; i++){
         deleteEdge(graph, node, i);
     }
+
+    Node* temp = graph -> adjLists[node];
+    while(temp != NULL){
+        Node* next = temp -> next;
+        free(temp);
+        temp = next;
+    }
+    graph -> adjLists[node] = NULL;
+}
+
+void DFS(Graph* graph, int node, int* visited){
+    visited[node] = 1;
+    Node* temp = graph -> adjLists[node];
+    printf("%d ", node);
+    while(temp != NULL){
+        if(!visited[temp -> key]){
+            DFS(graph, temp -> key, visited);
+        }
+        temp = temp -> next;
+    }
+}
+
+void BFS(Graph* graph, int startNode){
+    int* visited = (int*)calloc(graph->num_nodes, sizeof(int));
+    int* queue = (int*)malloc(graph->num_nodes * sizeof(int));
+    int front = 0, rear = 0;
+    visited[startNode] = 1;
+    queue[rear++] = startNode;
+
+    while(front != rear){
+        int currentNode = queue[front++];
+        printf("%d ", currentNode);
+        Node* temp = graph -> adjLists[currentNode];
+        while(temp){
+            int adjNode = temp -> key;
+            if(!visited[adjNode]){
+                visited[adjNode] = 1;
+                queue[rear++] = adjNode;
+            }
+            temp = temp -> next;
+
+        }
+    }
+    free(queue);
+    free(visited);
 }
 
 int meniu(){
@@ -123,7 +168,7 @@ int meniu(){
     return i;
 }
 int main(){
-    int numNodes = 
+
 
     return 0;
 }
