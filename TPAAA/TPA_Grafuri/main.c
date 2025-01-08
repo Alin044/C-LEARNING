@@ -8,9 +8,9 @@ int A[MAX][MAX];
 
 void initialize(){  // Initializam toata matricea A si N cu 0;
     int i, j;
-    for(i = 0; i < N; i++){
+    for(i = 0; i < MAX; i++){
         N[i] = 0;
-        for(j = 0; j < N; j++){
+        for(j = 0; j < MAX; j++){
             A[i][j] = 0;
         }
     }
@@ -21,12 +21,12 @@ void addNode(int *n){ //n - numarul de noduri
     do{
         printf("\nIntroduceit -0 daca ati terminat \nIntroduceti keia : ");
 
-        scanf("%d", N[*n]);
+        scanf("%d", &N[*n]);
         (*n)++;
     }while(N[*n] != 0);
 }
 
-void addArc(int *a){
+void addArc(int *a, int *n){
     int x, y;
     int j;
     do{
@@ -34,9 +34,13 @@ void addArc(int *a){
         scanf("%d", &x);
         printf("\nIntroduceti pos keii b : ");
         scanf("%d", &y);
-        A[x][y] = 1;
-        A[y][x] = 1;
-        (*a)++;
+        if(x >= *n || y >= *n){
+            printf("\nERROR, no nodes at this position\n");
+        }else{
+            A[x][y] = 1;
+            A[y][x] = 1;
+            (*a)++;
+        }
         printf("\nIntroduceti - 0 daca ati introdus toate arcele - 1 pt a continua : ");
         scanf("%d", &j);
     }while(j != 0);
@@ -82,6 +86,20 @@ void deleteNode(int *a, int *n){
     }
 }
 
+void displayMatrix(int *n){
+    printf("\n");
+    for(int i = 0; i < *n; i++){
+        printf("%d\t", N[i]);
+    }
+    printf("\n\n");
+    for(int i = 0; i < *n; i++){
+        for(int j = 0; j < *n; j++){
+            printf("%d\t", A[i][j]);
+        }
+        printf("\n");
+    }
+}
+
 int menu(){
     int option;
     printf("\nMeniu : \n");
@@ -97,6 +115,26 @@ int menu(){
 }
 
 int main(){
-    int j, x, y, a = 0, n = 0; //a - numar de arce || n - numar de noduri
+    int i, j, x, y, a = 0, n = 0; //a - numar de arce || n - numar de noduri
+    int opt;
+    do{ 
+        opt = menu();
+        switch(opt){
+            case 1:
+                addNode(&n);
+                break;
+            case 2:
+                addArc(&a);
+                break;
+            case 3:
+                deleteArch(&a);
+                break;
+            case 4:
+                deleteNode(&a, &n);
+                break;
+            default:
+                printf("\nOptiune invalida.\n");
+        }
+    }while(opt != 0);
     return 0;
 }
