@@ -23,7 +23,7 @@ void addNode(int *n){ //n - numarul de noduri
 
         scanf("%d", &N[*n]);
         (*n)++;
-    }while(N[*n] != 0);
+    }while(N[*n - 1] != 0);
 }
 
 void addArc(int *a, int *n){
@@ -53,6 +53,7 @@ void deleteArch(int *a){
     printf("\nIntroduceti pos keii b : ");
     scanf("%d", &y);
     A[x][y] = 0;
+    A[y][x] = 0;
 }
 
 void deleteNode(int *a, int *n){
@@ -143,7 +144,9 @@ int menu(){
     printf("3. Stergere arc\n");
     printf("4. Stergere nod\n");
     printf("5. Afisare matricea de adiacenta\n");
-    printf("6. Iesire\n");
+    printf("6. Cautare prin cuprindere (BFS)\n");
+    printf("7. Cautare in adancime (DFS)\n");
+    printf("0. Iesire\n");
     printf("Alegeti optiunea : ");
     scanf("%d", &option);
     return option;
@@ -167,6 +170,21 @@ int main(){
                 break;
             case 4:
                 deleteNode(&a, &n);
+                break;
+            case 5: 
+                displayMatrix(&n);
+                break;
+            case 6:
+                printf("\nIntroduceti nodul de pornire : ");
+                scanf("%d", &x);
+                BFS(x, n);
+                break;
+            case 7:
+                printf("\nIntroduceti nodul de pornire : ");
+                scanf("%d", &x);
+                DFS(x, visited, A, n);
+                break;
+            case 0:
                 break;
             default:
                 printf("\nOptiune invalida.\n");
