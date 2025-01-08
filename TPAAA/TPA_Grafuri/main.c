@@ -100,6 +100,41 @@ void displayMatrix(int *n){
     }
 }
 
+void BFS(int startNode, int n) {
+    int visited[MAX] = {0};
+    int queue[MAX];
+    int front = 0, rear = 0;
+
+    visited[startNode] = 1;
+    queue[rear++] = startNode;
+
+    printf("Căutare prin cuprindere (BFS) pornind de la nodul %d: ", startNode);
+
+    while (front < rear) {
+        int currentNode = queue[front++];
+        printf("%d ", currentNode);
+
+        for (int i = 0; i < n; i++) {
+            if (A[currentNode][i] == 1 && !visited[i]) {
+                visited[i] = 1;
+                queue[rear++] = i;
+            }
+        }
+    }
+    printf("\n");
+}
+
+void DFS(int node, int visited[], int Arch[MAX][MAX], int n){
+    visited[node] = 1;
+    printf("Visited node %d\n", node);
+
+    for(int i = 0; i < n; i++){
+        if(Arch[node][i] == 1 && visited[i] == 0){
+            DFS(i, visited, Arch, n);
+        }
+    }
+}
+
 int menu(){
     int option;
     printf("\nMeniu : \n");
@@ -117,6 +152,7 @@ int menu(){
 int main(){
     int i, j, x, y, a = 0, n = 0; //a - numar de arce || n - numar de noduri
     int opt;
+    int visited[MAX] = {0}; 
     do{ 
         opt = menu();
         switch(opt){
@@ -124,7 +160,7 @@ int main(){
                 addNode(&n);
                 break;
             case 2:
-                addArc(&a);
+                addArc(&a, &n);
                 break;
             case 3:
                 deleteArch(&a);
