@@ -22,8 +22,8 @@ void initialize(){  // Initializam toata matricea A si N cu 0;
 void addNode(int *n){ //n - numarul de noduri
     do{
         printf("\nIntroduceit -0 daca ati terminat \nIntroduceti keia : ");
-
         scanf("%d", &N[*n]);
+        
         (*n)++;
     }while(N[*n - 1] != 0);
 }
