@@ -12,7 +12,7 @@ typedef struct TipNod{
 typedef TipNod* RefTipNod;
 
 RefTipNod StrAdj[MAX];
-bool vizitat[MAX];
+bool vizitat[MAX];  
 
 void adaugaArc(int n1, int n2){
     RefTipNod v;
@@ -43,7 +43,7 @@ void BFS(int start){
 
     while(inceput < sfarsit){
         int nodCurent = coada[inceput++];
-        printf("d ", nodCurent);
+        printf("%d ", nodCurent);
 
         v = StrAdj[nodCurent];
         while(v != NULL){
@@ -55,5 +55,9 @@ void BFS(int start){
             v = v->urm;
         }
     }
+}
 
+int main(){
+
+    return 0;
 }
