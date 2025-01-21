@@ -23,7 +23,7 @@ void addNode(int *n){ //n - numarul de noduri
     do{
         printf("\nIntroduceit -0 daca ati terminat \nIntroduceti keia : ");
         scanf("%d", &N[*n]);
-        
+
         (*n)++;
     }while(N[*n - 1] != 0);
 }
@@ -161,55 +161,50 @@ void DFS(int node, int visited[], int Arch[MAX][MAX], int n){
 
 
 void primMST(int n) {
-    int parent[MAX];      // Vector pentru a stoca arborele parțial de cost minim
-    int key[MAX];         // Vector pentru a stoca costurile minime
-    int visited[MAX];     // Vector pentru a marca nodurile incluse în MST
-    int notVisited[MAX];  // Vector pentru a marca nodurile neincluse în MST
+    int parent[MAX];      // Array to store the MST
+    int key[MAX];         // Array to store minimum weights
+    int visited[MAX];     // Single array to track visited nodes
 
-    // Definim o valoare foarte mare pentru "infinit"
-    const int INF = 999999;
+    const int INF = 999999; // Large value representing "infinity"
 
-    // Inițializăm cheile cu "infinit" și toate nodurile ca nevizitate
+    // Initialize all keys as infinite and all nodes as not visited
     for (int i = 0; i < n; i++) {
-        key[i] = INF;      // Costul inițial este "infinit"
-        visited[i] = 0;    // Niciun nod nu este în MST
-        notVisited[i] = 1; // Toate nodurile sunt în notVisited
+        key[i] = INF;
+        visited[i] = 0;
     }
 
-    // Începem cu primul nod (nodul 0)
-    key[0] = 0;          // Costul pentru nodul de start este 0
-    parent[0] = -1;      // Primul nod este rădăcina arborelui
+    key[0] = 0;     // Start with the first node, cost is 0
+    parent[0] = -1; // First node is the root of MST
 
-    // Construim MST-ul
+    // Construct the MST
     for (int count = 0; count < n - 1; count++) {
-        // Găsim nodul cu cheia minimă din notVisited
+        // Find the node with the minimum key value that hasn't been visited
         int u = -1;
         for (int v = 0; v < n; v++) {
-            if (notVisited[v] && (u == -1 || key[v] < key[u])) {
-                u = v;  // Alegem nodul cu costul minim din notVisited
+            if (!visited[v] && (u == -1 || key[v] < key[u])) {
+                u = v;
             }
         }
 
-        // Adăugăm nodul găsit în MST (visited)
-        notVisited[u] = 0;  // Nodul u este scos din notVisited
-        visited[u] = 1;     // Nodul u este adăugat în visited
+        visited[u] = 1; // Mark the chosen node as visited
 
-        // Actualizăm cheile și părinții nodurilor din notVisited adiacente cu u
+        // Update the key and parent for the adjacent nodes of the chosen node
         for (int v = 0; v < n; v++) {
-            if (A[u][v] && notVisited[v] && weight[u][v] < key[v]) {
-                parent[v] = u;          // Actualizăm părintele
-                key[v] = weight[u][v];  // Actualizăm costul minim
+            if (A[u][v] && !visited[v] && weight[u][v] < key[v]) {
+                parent[v] = u;
+                key[v] = weight[u][v];
             }
         }
     }
 
-    // Afișăm arborele parțial de cost minim
+    // Print the MST
     printf("\nArbore parțial de cost minim (MST) folosind algoritmul lui Prim:\n");
     printf("Muchie \tPondere\n");
     for (int i = 1; i < n; i++) {
         printf("%d - %d \t%d\n", parent[i], i, weight[i][parent[i]]);
     }
 }
+
 
 int menu(){
     int option;
