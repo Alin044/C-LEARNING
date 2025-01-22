@@ -70,7 +70,7 @@ void deleteArch(int *numberOfNodes, int* numberOfArches){
     scanf("%d", &x);
     printf("\nb : ");
     scanf("%d", &y);
-    if(x <= numberOfNodes && y <= numberOfNodes){
+    if(x <= *numberOfNodes && y <= *numberOfNodes){
         if(A[x][y] == 1 && A[y][x] == 1){
             A[x][y] = 0;
             A[y][x] = 0;
@@ -81,12 +81,6 @@ void deleteArch(int *numberOfNodes, int* numberOfArches){
     }
 }
 
-void delete(int *numberOfNodes, int *numberOfArches){
-    int pos_x, opt;
-    printf("\nIntroduceti positia nodului pe care doriti sa o stergeti: ");
-    scanf("%d", &pos_x);
-
-}
 
 void deleteNode(int *numberOfNodes, int *numberOfArches){
     int x, opt = 0;
@@ -173,7 +167,7 @@ void BreadthFirstSearch(int numberOfNodes, int startNode){
 
 void DepthFirstSearch(int startNode, int visited[], int numberOfNodes){
     visited[startNode] = 1;
-    printf("Visited node : %d\n", A[startNode]);
+    printf("Visited node : %d\n", N[startNode]);
 
     for(int i = 0; i < numberOfNodes; i++){
         if(A[startNode][i] == 1 && visited[i] == 0){
@@ -240,7 +234,7 @@ int main(){
                 addNode(&numberOfNodes);
                 break;
             case 2:
-                addArc(&numberOfNodes, &numberOfArches);
+                addArch(&numberOfNodes, &numberOfArches);
                 break;
             case 3:
                 displayMatrix(numberOfNodes, numberOfArches);
