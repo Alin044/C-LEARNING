@@ -287,3 +287,24 @@ int meniu(){
     scanf("%d",&option);
     return option;
 }
+
+void auf(int startNode, int numberOfNodes){
+    int visited[MAX] = {0};
+    int queue[MAX];
+    int front = 0, rear = 0;
+
+    visited[startNode] = 1;
+    queue[rear++] = startNode;
+
+    while(front < rear){
+        int currentNode = queue[front++];
+        printf("%d\t", currentNode);
+
+        for(int i = 0; i < numberOfNodes; i++){
+            if(A[currentNode][i] == 1 && visited[i] == 0){
+                visited[i] = 1;
+                queue[rear++] = i;
+            }
+        }
+    }
+}
